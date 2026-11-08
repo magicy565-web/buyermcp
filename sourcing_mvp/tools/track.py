@@ -98,40 +98,38 @@ async def _check_for_response(inquiry_id: str) -> dict | None:
     """
     检查邮件回复
 
-    MVP 阶段：
-    - 方案 1：使用 Gmail API 读取收件箱
+    MVP 阶段要求：
+    - 不允许随机生成伪造报价
+    - 必须实现真实邮件检查，或明确返回 None
+
+    实现选项：
+    - 方案 1：使用 Gmail API 读取收件箱（推荐）
     - 方案 2：使用 IMAP 读取邮件
-    - 方案 3：供应商通过 Webhook 提交（最可控）
-    - 方案 4：暂时返回模拟数据（测试用）
+    - 方案 3：供应商通过 Webhook 提交
     """
     # TODO: 实现真实邮件检查
-    # 这里暂时返回 None（无回复）
-
-    logger.debug(f"Checking response for inquiry {inquiry_id}")
-
-    # 模拟：10% 概率有回复
-    import random
-    if random.random() < 0.1:
-        return {
-            "received_at": datetime.now().isoformat(),
-            "has_quote": True,
-            "fob_price": "$18.50/unit",
-            "moq": "100 units",
-            "lead_time": "25 days",
-            "payment_terms": "30% deposit, 70% before shipping",
-            "raw_email": "[Simulated supplier response]",
-            "extraction_confidence": 0.9,
-        }
-
+    # 在实现之前，返回 None 表示无回复
+    logger.debug(f"Checking response for inquiry {inquiry_id} - email checking not implemented yet")
     return None
 
     # 真实实现示例（使用 Gmail API）：
+    # import os
     # try:
     #     from google.oauth2.credentials import Credentials
     #     from googleapiclient.discovery import build
     #
-    #     creds = Credentials.from_authorized_user_file('token.json')
+    #     token_file = os.environ.get('GMAIL_TOKEN_FILE', 'token.json')
+    #     if not os.path.exists(token_file):
+    #         logger.error("Gmail credentials not configured")
+    #         return None
+    #
+    #     creds = Credentials.from_authorized_user_file(token_file)
     #     service = build('gmail', 'v1', credentials=creds)
+    #
+    #     # 获取询价信息以匹配邮件
+    #     inquiry = db.get_inquiry(inquiry_id)
+    #     if not inquiry:
+    #         return None
     #
     #     # 搜索相关邮件
     #     results = service.users().messages().list(

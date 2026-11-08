@@ -92,27 +92,37 @@ async def _send_email(to: str, subject: str, body: str) -> bool:
     """
     发送邮件（实际实现）
 
-    MVP 阶段：
-    - 方案 1：使用 Gmail API（需要 OAuth）
-    - 方案 2：使用 SMTP（需要应用密码）
-    - 方案 3：使用 SendGrid / Mailgun（最简单）
-    - 方案 4：暂时只记录，不实际发送（测试用）
+    MVP 阶段要求：
+    - 不允许 Mock 或模拟成功
+    - 必须实现真实邮件发送，或明确返回 False
+
+    实现选项：
+    - 方案 1：使用 SendGrid API（推荐）
+    - 方案 2：使用 SMTP + Gmail/Outlook
+    - 方案 3：使用 Mailgun API
     """
-    # TODO: 实现真实邮件发送
-    # 这里暂时只记录
+    # 记录邮件内容供调试
     logger.info(f"[EMAIL] To: {to}")
     logger.info(f"[EMAIL] Subject: {subject}")
-    logger.info(f"[EMAIL] Body:\n{body}")
+    logger.info(f"[EMAIL] Body preview: {body[:200]}...")
 
-    # 模拟发送成功
-    return True
+    # TODO: 实现真实邮件发送
+    # 在实现之前，返回 False 表示邮件发送未实现
+    logger.error("Email sending not implemented yet - returning False")
+    return False
 
     # 真实实现示例（使用 SendGrid）：
+    # import os
     # try:
     #     import sendgrid
     #     from sendgrid.helpers.mail import Mail
     #
-    #     sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
+    #     api_key = os.environ.get('SENDGRID_API_KEY')
+    #     if not api_key:
+    #         logger.error("SENDGRID_API_KEY not configured")
+    #         return False
+    #
+    #     sg = sendgrid.SendGridAPIClient(api_key=api_key)
     #     message = Mail(
     #         from_email='sourcing@yourdomain.com',
     #         to_emails=to,
