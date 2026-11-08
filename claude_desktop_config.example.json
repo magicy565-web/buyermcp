@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "sourcing": {
+      "command": "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python315\\python.exe",
+      "args": ["-m", "sourcing_mcp.server"],
+      "env": {
+        "DATABASE_URL": "postgresql://postgres:password@localhost:5432/sourcing_mcp"
+      }
+    }
+  }
+}

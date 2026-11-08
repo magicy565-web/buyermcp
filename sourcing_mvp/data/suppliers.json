@@ -1,0 +1,156 @@
+[
+  {
+    "id": "supplier_001",
+    "name": "Shenzhen Kafei Electronics Co., Ltd.",
+    "contact": {
+      "email": "sales@kafei-example.com",
+      "wechat": "kafei_export",
+      "phone": "+86 755 1234 5678",
+      "contact_person": "Linda Chen"
+    },
+    "categories": [
+      "small_appliances",
+      "coffee_makers",
+      "portable_electronics"
+    ],
+    "capabilities": {
+      "moq_range": "50-500 units",
+      "lead_time": "20-30 days",
+      "certifications": ["CE", "FCC", "RoHS"],
+      "export_experience": "5+ years to EU/US"
+    },
+    "verification": {
+      "business_license": true,
+      "factory_visit": false,
+      "past_orders": 3,
+      "email_verified": true
+    },
+    "response_rate": 0.85,
+    "avg_response_time_hours": 12.5,
+    "notes": "Quick response, flexible MOQ, suitable for small batch trials. Specializes in portable coffee makers.",
+    "active": true
+  },
+  {
+    "id": "supplier_002",
+    "name": "Ningbo Home Appliance Manufacturing Co.",
+    "contact": {
+      "email": "export@ningbo-example.com",
+      "wechat": "ningbo_home",
+      "phone": "+86 574 8765 4321",
+      "contact_person": "Kevin Wang"
+    },
+    "categories": [
+      "small_appliances",
+      "kitchen_appliances",
+      "general_electronics"
+    ],
+    "capabilities": {
+      "moq_range": "200-1000 units",
+      "lead_time": "25-35 days",
+      "certifications": ["ISO9001", "BSCI", "CE"],
+      "export_experience": "10+ years, mainly to Europe"
+    },
+    "verification": {
+      "business_license": true,
+      "factory_visit": false,
+      "past_orders": 1,
+      "email_verified": true
+    },
+    "response_rate": 0.75,
+    "avg_response_time_hours": 24.0,
+    "notes": "General small appliances manufacturer. Higher MOQ but competitive pricing. ISO certified.",
+    "active": true
+  },
+  {
+    "id": "supplier_003",
+    "name": "Guangzhou Barista Tech Co., Ltd.",
+    "contact": {
+      "email": "info@barista-example.com",
+      "wechat": "barista_tech",
+      "phone": "+86 20 3456 7890",
+      "contact_person": "Amy Liu"
+    },
+    "categories": [
+      "coffee_makers",
+      "premium_appliances",
+      "coffee_equipment"
+    ],
+    "capabilities": {
+      "moq_range": "50-300 units",
+      "lead_time": "18-25 days",
+      "certifications": ["CE", "FCC", "ETL", "CB"],
+      "export_experience": "Premium coffee equipment, 8 years EU/US/AU"
+    },
+    "verification": {
+      "business_license": true,
+      "factory_visit": true,
+      "past_orders": 5,
+      "email_verified": true
+    },
+    "response_rate": 0.92,
+    "avg_response_time_hours": 8.0,
+    "notes": "Premium coffee equipment specialist. Excellent quality and service. Past successful EU/US buyers. Verified through factory visit.",
+    "active": true
+  },
+  {
+    "id": "supplier_004",
+    "name": "Dongguan Packaging Solutions Ltd.",
+    "contact": {
+      "email": "sales@dg-packaging-example.com",
+      "phone": "+86 769 2345 6789",
+      "contact_person": "Jason Huang"
+    },
+    "categories": [
+      "packaging",
+      "printing",
+      "custom_boxes"
+    ],
+    "capabilities": {
+      "moq_range": "500-5000 units",
+      "lead_time": "15-20 days",
+      "certifications": ["FSC", "ISO9001"],
+      "export_experience": "Packaging and printing, 12 years global export"
+    },
+    "verification": {
+      "business_license": true,
+      "factory_visit": false,
+      "past_orders": 2,
+      "email_verified": true
+    },
+    "response_rate": 0.80,
+    "avg_response_time_hours": 18.0,
+    "notes": "Custom packaging specialist. Good for branded packaging needs. FSC certified.",
+    "active": true
+  },
+  {
+    "id": "supplier_005",
+    "name": "Zhejiang Container Manufacturing Co.",
+    "contact": {
+      "email": "export@zj-container-example.com",
+      "wechat": "zj_container",
+      "phone": "+86 571 9876 5432",
+      "contact_person": "Susan Zhang"
+    },
+    "categories": [
+      "containers",
+      "bottles",
+      "packaging"
+    ],
+    "capabilities": {
+      "moq_range": "1000-10000 units",
+      "lead_time": "20-30 days",
+      "certifications": ["FDA", "LFGB", "ISO9001"],
+      "export_experience": "Food-grade containers, 15 years to US/EU/Japan"
+    },
+    "verification": {
+      "business_license": true,
+      "factory_visit": false,
+      "past_orders": 0,
+      "email_verified": true
+    },
+    "response_rate": 0.65,
+    "avg_response_time_hours": 36.0,
+    "notes": "Food-grade container specialist. FDA approved. Higher MOQ but excellent quality.",
+    "active": true
+  }
+]
