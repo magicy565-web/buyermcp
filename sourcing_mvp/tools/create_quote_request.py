@@ -11,6 +11,7 @@ from uuid import uuid4
 
 from ..quote_models import QuoteRequestStatus
 from ..token_manager import TokenManager
+from ..database import db
 
 logger = logging.getLogger(__name__)
 
@@ -21,8 +22,6 @@ async def create_quote_request(args: dict[str, Any]) -> dict[str, Any]:
 
     为指定供应商创建报价请求，生成专属访问链接
     """
-    # 从 mcp_server 导入全局 db
-    from ..mcp_server import db
     # 解析参数
     case_id = args.get("case_id")
     supplier_id = args.get("supplier_id")

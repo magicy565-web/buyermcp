@@ -208,18 +208,16 @@ def test_unified_database():
     print("\n=== Test 4: Unified Database Instance ===")
 
     from sourcing_mvp.database import db as global_db
-    from sourcing_mvp.mcp_server import db as mcp_db
     from sourcing_mvp.quote_api import db as api_db
 
     # 验证路径一致
     assert global_db.db_path == TEST_DB, f"global_db path mismatch: {global_db.db_path}"
-    assert mcp_db.db_path == TEST_DB, f"mcp_db path mismatch: {mcp_db.db_path}"
     assert api_db.db_path == TEST_DB, f"api_db path mismatch: {api_db.db_path}"
 
     print(f"✅ All database instances use: {TEST_DB}")
     print(f"   - sourcing_mvp.database.db")
-    print(f"   - sourcing_mvp.mcp_server.db")
     print(f"   - sourcing_mvp.quote_api.db")
+    print(f"   - All MCP tools import from database.db")
 
 def main():
     """主测试流程"""

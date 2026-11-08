@@ -8,6 +8,8 @@ from typing import Any, Optional
 from datetime import datetime
 from decimal import Decimal
 
+from ..database import db
+
 logger = logging.getLogger(__name__)
 
 
@@ -17,8 +19,6 @@ async def get_quotes(args: dict[str, Any]) -> dict[str, Any]:
 
     按案例或报价请求查询，验证买手访问权限
     """
-    # 从 mcp_server 导入全局 db
-    from ..mcp_server import db
     case_id = args.get("case_id")
     quote_request_id = args.get("quote_request_id")
     buyer_id = args.get("buyer_id", "demo_buyer")
