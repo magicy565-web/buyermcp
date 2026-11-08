@@ -75,13 +75,15 @@ buyermcp/
 3. **send_inquiry** - Send and track inquiries
 4. **track_response** - Check supplier responses
 
-### 5 Real Suppliers
+### 5 Test Suppliers (Not Production Ready)
 
-- Shenzhen Kafei Electronics (Coffee makers)
-- Ningbo Home Appliance (Small appliances)
-- Guangzhou Barista Tech (Premium coffee equipment) ⭐
-- Dongguan Packaging (Custom packaging)
-- Zhejiang Container (Food-grade containers)
+⚠️ **All supplier data is for testing only**:
+- Uses `example.com` email domains
+- Not verified or contacted
+- `active: false` - not available for real inquiries
+- See [sourcing_mvp/data/suppliers.json](sourcing_mvp/data/suppliers.json)
+
+**Real supplier integration is NOT yet implemented.**
 
 ---
 
@@ -106,7 +108,8 @@ We measure what matters:
 
 ### 2. Real > Scale
 
-**5 real verified suppliers** > 10,000 database records
+**Goal**: 5-10 real verified suppliers with proven track records  
+**Current Status**: Test data only, real supplier integration pending
 
 ### 3. Good Enough is Good
 
@@ -140,17 +143,26 @@ Never fabricate. Never guess.
 
 ## 🚀 Roadmap
 
-### Stage 1: Discovery (Current MVP)
+### Stage 1: Discovery (In Development)
 
-**Goal**: Validate buyer intent
+**Goal**: Validate buyer intent and supplier engagement
 
-- ✅ Buyer Magazine with products
-- ✅ Conversational sourcing
-- ✅ Supplier recommendations
-- ✅ Inquiry coordination
-- ✅ Response tracking
+**Current Status**:
+- ✅ Conversational interface (MCP tools)
+- ✅ Supplier matching algorithm
+- ✅ Inquiry email generation
+- ❌ Real email sending (not implemented)
+- ❌ Real response tracking (not implemented)
+- ❌ Verified supplier network (test data only)
 
-**Success**: 5+ buyers, 10+ inquiries, 60%+ response rate
+**Next Steps**:
+1. Implement real email sending (SendGrid/SMTP)
+2. Implement real response tracking (Gmail API/IMAP)
+3. Integrate 5-10 verified real suppliers
+4. Buyer identity and authorization
+5. End-to-end test with real sourcing case
+
+**Success Criteria**: 5+ buyers, 10+ real inquiries sent, 60%+ response rate
 
 ### Stage 2: Connection
 

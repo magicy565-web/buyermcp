@@ -72,10 +72,16 @@ async def send_inquiry(args: dict[str, Any]) -> dict[str, Any]:
 
         logger.info(f"Inquiry {input_data.inquiry_id} sent successfully")
     else:
+        # 邮件发送功能未实现，保持 DRAFT 状态而不是标记为 BOUNCED
+        # BOUNCED 应该只用于真实邮件发送后被退回的情况
         db.update_inquiry(str(input_data.inquiry_id), {
-            "status": InquiryStatus.BOUNCED.value,
+            "status": InquiryStatus.DRAFT.value,
         })
-        tracking_info = f"Failed to send email to {supplier['contact']['email']}"
+        tracking_info = (
+            f"Email sending not implemented yet. "
+            f"Cannot send to {supplier['contact']['email']}. "
+            f"Inquiry remains in draft status."
+        )
         logger.error(tracking_info)
 
     output = SendInquiryOutput(

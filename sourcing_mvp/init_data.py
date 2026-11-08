@@ -29,7 +29,9 @@ def load_suppliers():
             # 检查是否已存在
             existing = db.get_supplier(supplier["id"])
             if existing:
-                logger.info(f"Supplier {supplier['id']} already exists, skipping")
+                # 更新已存在的供应商，确保测试数据标记生效
+                db.update_supplier(supplier["id"], supplier)
+                logger.info(f"✓ Updated supplier: {supplier['name']} (marked as test data)")
                 continue
 
             # 创建供应商
@@ -37,7 +39,7 @@ def load_suppliers():
             logger.info(f"✓ Created supplier: {supplier['name']}")
 
         except Exception as e:
-            logger.error(f"Failed to create supplier {supplier['id']}: {e}")
+            logger.error(f"Failed to create/update supplier {supplier['id']}: {e}")
 
     logger.info("Supplier data loaded successfully")
 

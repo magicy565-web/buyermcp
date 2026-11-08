@@ -114,8 +114,8 @@ def create_server() -> Server:
                         },
                         "confirm": {
                             "type": "boolean",
-                            "description": "买手确认发送",
-                            "default": True,
+                            "description": "买手确认发送（必须明确设为 true）",
+                            "default": False,
                         },
                     },
                     "required": ["inquiry_id"],

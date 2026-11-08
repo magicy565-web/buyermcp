@@ -240,13 +240,17 @@ def _score_supplier(
         reasons.append(f"{verification['past_orders']} past orders")
 
     # 4. 响应率 (15%)
-    response_rate = supplier.get("response_rate", 0)
-    score += response_rate * 0.15
+    response_rate = supplier.get("response_rate")
+    if response_rate is not None:
+        score += response_rate * 0.15
 
-    if response_rate >= 0.7:
-        reasons.append(f"Good response rate ({response_rate:.0%})")
-    elif response_rate < 0.5:
-        caveats.append("Limited response history")
+        if response_rate >= 0.7:
+            reasons.append(f"Good response rate ({response_rate:.0%})")
+        elif response_rate < 0.5:
+            caveats.append("Limited response history")
+    else:
+        # response_rate 为 None（测试数据或新供应商），不加分也不扣分
+        caveats.append("No response history available")
 
     # 5. 加分项
     capabilities = supplier.get("capabilities", {})
