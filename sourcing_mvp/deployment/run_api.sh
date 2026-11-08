@@ -10,9 +10,12 @@ export ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-*}
 # 创建数据库目录
 mkdir -p "$(dirname "$DATABASE_PATH")"
 
+# 获取脚本所在目录的父目录（项目根目录）
+PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+cd "$PROJECT_ROOT"
+
 # 初始化数据库
 echo "Initializing database..."
-cd "$(dirname "$0")/.."
 python -m sourcing_mvp.init_data
 
 # 启动服务

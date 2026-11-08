@@ -85,12 +85,25 @@ class QuoteSubmission(BaseModel):
     @validator("quote_valid_until")
     def validate_valid_until(cls, v):
         try:
-            valid_date = datetime.fromisoformat(v.replace("Z", "+00:00"))
-            if valid_date <= datetime.now():
+            # 接受 ISO 8601 格式（包括带 Z 的 UTC 时间）
+            if v.endswith('Z'):
+                v = v[:-1] + '+00:00'
+            valid_date = datetime.fromisoformat(v)
+
+            # 转换为 UTC 进行比较
+            from datetime import timezone
+            now_utc = datetime.now(timezone.utc)
+            if valid_date.tzinfo is None:
+                # 如果没有时区信息，假定为 UTC
+                valid_date = valid_date.replace(tzinfo=timezone.utc)
+
+            if valid_date <= now_utc:
                 raise ValueError("Valid until date must be in the future")
-            return v
-        except (ValueError, TypeError):
-            raise ValueError("Invalid date format")
+
+            # 返回 ISO 格式字符串
+            return valid_date.isoformat()
+        except (ValueError, TypeError) as e:
+            raise ValueError(f"Invalid date format: {e}")
 
 
 # ============================================================================
@@ -196,14 +209,15 @@ async def get_quote_form(token: str):
             """
         )
 
-    # 读取并替换模板变量
+    # 读取并替换模板变量（HTML 转义防止注入）
+    import html as html_escape
     html_content = form_html_path.read_text(encoding="utf-8")
-    html_content = html_content.replace("{{TOKEN}}", token)
-    html_content = html_content.replace("{{PRODUCT_NAME}}", quote_request["product_name"])
-    html_content = html_content.replace("{{PRODUCT_DESCRIPTION}}", quote_request["product_description"])
-    html_content = html_content.replace("{{QUANTITY}}", str(quote_request["quantity"]))
-    html_content = html_content.replace("{{SUPPLIER_NAME}}", supplier["name"] if supplier else "")
-    html_content = html_content.replace("{{DEADLINE}}", quote_request["quote_deadline"])
+    html_content = html_content.replace("{{TOKEN}}", html_escape.escape(token))
+    html_content = html_content.replace("{{PRODUCT_NAME}}", html_escape.escape(quote_request["product_name"]))
+    html_content = html_content.replace("{{PRODUCT_DESCRIPTION}}", html_escape.escape(quote_request["product_description"]))
+    html_content = html_content.replace("{{QUANTITY}}", html_escape.escape(str(quote_request["quantity"])))
+    html_content = html_content.replace("{{SUPPLIER_NAME}}", html_escape.escape(supplier["name"] if supplier else ""))
+    html_content = html_content.replace("{{DEADLINE}}", html_escape.escape(quote_request["quote_deadline"]))
 
     return HTMLResponse(content=html_content)
 

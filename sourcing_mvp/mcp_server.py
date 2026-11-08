@@ -1,23 +1,31 @@
 """
 AI Sourcing Partner - MVP MCP Server
 
-4 个核心工具：
+6 个核心工具：
 1. discover_suppliers - 发现供应商
 2. prepare_inquiry - 准备询价
 3. send_inquiry - 发送询价
 4. track_response - 追踪回复
+5. create_quote_request - 创建报价请求
+6. get_quotes - 查询报价
 """
 import asyncio
 import logging
+import os
 from collections.abc import Sequence
 
 from mcp.server import Server
 from mcp.server.stdio import stdio_server
 from mcp.types import Tool, TextContent
 
+from .database import Database
 from .tools import discover, prepare, send, track
 from .tools import create_quote_request, get_quotes
 from .mcp_format_helpers import _format_create_quote_output, _format_get_quotes_output
+
+# 全局数据库实例 - 统一路径
+DB_PATH = os.environ.get("DATABASE_PATH", "sourcing_mvp.db")
+db = Database(DB_PATH)
 
 # 配置日志
 logging.basicConfig(

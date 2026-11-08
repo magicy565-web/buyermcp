@@ -4,12 +4,12 @@ MCP Tool: create_quote_request
 创建报价请求并生成专属链接
 """
 import logging
+import os
 from typing import Any
 from datetime import datetime, timedelta
 from uuid import uuid4
 
-from ..models import QuoteRequestStatus
-from ..database import db
+from ..quote_models import QuoteRequestStatus
 from ..token_manager import TokenManager
 
 logger = logging.getLogger(__name__)
@@ -21,6 +21,8 @@ async def create_quote_request(args: dict[str, Any]) -> dict[str, Any]:
 
     为指定供应商创建报价请求，生成专属访问链接
     """
+    # 从 mcp_server 导入全局 db
+    from ..mcp_server import db
     # 解析参数
     case_id = args.get("case_id")
     supplier_id = args.get("supplier_id")
@@ -50,10 +52,17 @@ async def create_quote_request(args: dict[str, Any]) -> dict[str, Any]:
     if case["buyer_id"] != buyer_id:
         raise ValueError("Access denied: not your case")
 
-    # 验证供应商存在
+    # 验证供应商存在且可用
     supplier = db.get_supplier(supplier_id)
     if not supplier:
         raise ValueError(f"Supplier not found: {supplier_id}")
+
+    # 生产环境拒绝测试供应商
+    if supplier.get("is_test_data", False):
+        raise ValueError("Cannot create quote request for test supplier in production")
+
+    if not supplier.get("active", True):
+        raise ValueError("Supplier is inactive")
 
     # 创建报价请求
     now = datetime.now()

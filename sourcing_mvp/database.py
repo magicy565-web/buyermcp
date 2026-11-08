@@ -186,6 +186,8 @@ class Database:
         """获取数据库连接"""
         conn = sqlite3.connect(self.db_path)
         conn.row_factory = sqlite3.Row
+        # 每次连接都开启外键约束
+        conn.execute("PRAGMA foreign_keys = ON")
         try:
             yield conn
         finally:
@@ -318,7 +320,7 @@ class Database:
                     "avg_response_time_hours": row["avg_response_time_hours"],
                     "notes": row["notes"],
                     "active": bool(row["active"]),
-                    "is_test_data": bool(row.get("is_test_data", 0)),
+                    "is_test_data": bool(row["is_test_data"] if "is_test_data" in row.keys() else 0),
                 }
         return None
 
@@ -350,7 +352,7 @@ class Database:
                     "avg_response_time_hours": row["avg_response_time_hours"],
                     "notes": row["notes"],
                     "active": bool(row["active"]),
-                    "is_test_data": bool(row.get("is_test_data", 0)),
+                    "is_test_data": bool(row["is_test_data"] if "is_test_data" in row.keys() else 0),
                 }
 
                 # 过滤品类
