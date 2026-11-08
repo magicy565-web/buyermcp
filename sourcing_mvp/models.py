@@ -232,7 +232,7 @@ class PrepareInquiryOutput(BaseModel):
 class SendInquiryInput(BaseModel):
     """send_inquiry 工具输入"""
     inquiry_id: UUID
-    confirm: bool = True  # 买手确认
+    confirm: bool = False  # 买手确认 - 默认 False，需要明确同意
 
 
 class SendInquiryOutput(BaseModel):

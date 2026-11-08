@@ -20,15 +20,17 @@
       "export_experience": "5+ years to EU/US"
     },
     "verification": {
-      "business_license": true,
+      "business_license": false,
       "factory_visit": false,
-      "past_orders": 3,
-      "email_verified": true
+      "past_orders": 0,
+      "email_verified": false,
+      "verification_note": "TEST DATA ONLY - Email domain is example.com, not verified"
     },
-    "response_rate": 0.85,
-    "avg_response_time_hours": 12.5,
-    "notes": "Quick response, flexible MOQ, suitable for small batch trials. Specializes in portable coffee makers.",
-    "active": true
+    "response_rate": null,
+    "avg_response_time_hours": null,
+    "notes": "⚠️ TEST DATA - Not a verified real supplier. Email uses example.com domain.",
+    "active": false,
+    "is_test_data": true
   },
   {
     "id": "supplier_002",
@@ -51,15 +53,17 @@
       "export_experience": "10+ years, mainly to Europe"
     },
     "verification": {
-      "business_license": true,
+      "business_license": false,
       "factory_visit": false,
-      "past_orders": 1,
-      "email_verified": true
+      "past_orders": 0,
+      "email_verified": false,
+      "verification_note": "TEST DATA ONLY - Email domain is example.com, not verified"
     },
-    "response_rate": 0.75,
-    "avg_response_time_hours": 24.0,
-    "notes": "General small appliances manufacturer. Higher MOQ but competitive pricing. ISO certified.",
-    "active": true
+    "response_rate": null,
+    "avg_response_time_hours": null,
+    "notes": "⚠️ TEST DATA - Not a verified real supplier. Email uses example.com domain.",
+    "active": false,
+    "is_test_data": true
   },
   {
     "id": "supplier_003",
@@ -82,15 +86,17 @@
       "export_experience": "Premium coffee equipment, 8 years EU/US/AU"
     },
     "verification": {
-      "business_license": true,
-      "factory_visit": true,
-      "past_orders": 5,
-      "email_verified": true
+      "business_license": false,
+      "factory_visit": false,
+      "past_orders": 0,
+      "email_verified": false,
+      "verification_note": "TEST DATA ONLY - Email domain is example.com, not verified"
     },
-    "response_rate": 0.92,
-    "avg_response_time_hours": 8.0,
-    "notes": "Premium coffee equipment specialist. Excellent quality and service. Past successful EU/US buyers. Verified through factory visit.",
-    "active": true
+    "response_rate": null,
+    "avg_response_time_hours": null,
+    "notes": "⚠️ TEST DATA - Not a verified real supplier. Email uses example.com domain.",
+    "active": false,
+    "is_test_data": true
   },
   {
     "id": "supplier_004",
@@ -112,15 +118,17 @@
       "export_experience": "Packaging and printing, 12 years global export"
     },
     "verification": {
-      "business_license": true,
+      "business_license": false,
       "factory_visit": false,
-      "past_orders": 2,
-      "email_verified": true
+      "past_orders": 0,
+      "email_verified": false,
+      "verification_note": "TEST DATA ONLY - Email domain is example.com, not verified"
     },
-    "response_rate": 0.80,
-    "avg_response_time_hours": 18.0,
-    "notes": "Custom packaging specialist. Good for branded packaging needs. FSC certified.",
-    "active": true
+    "response_rate": null,
+    "avg_response_time_hours": null,
+    "notes": "⚠️ TEST DATA - Not a verified real supplier. Email uses example.com domain.",
+    "active": false,
+    "is_test_data": true
   },
   {
     "id": "supplier_005",
@@ -143,14 +151,16 @@
       "export_experience": "Food-grade containers, 15 years to US/EU/Japan"
     },
     "verification": {
-      "business_license": true,
+      "business_license": false,
       "factory_visit": false,
       "past_orders": 0,
-      "email_verified": true
+      "email_verified": false,
+      "verification_note": "TEST DATA ONLY - Email domain is example.com, not verified"
     },
-    "response_rate": 0.65,
-    "avg_response_time_hours": 36.0,
-    "notes": "Food-grade container specialist. FDA approved. Higher MOQ but excellent quality.",
-    "active": true
+    "response_rate": null,
+    "avg_response_time_hours": null,
+    "notes": "⚠️ TEST DATA - Not a verified real supplier. Email uses example.com domain.",
+    "active": false,
+    "is_test_data": true
   }
 ]

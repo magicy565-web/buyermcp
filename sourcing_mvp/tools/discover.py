@@ -47,7 +47,17 @@ async def discover_suppliers(args: dict[str, Any]) -> dict[str, Any]:
     if not all_suppliers:
         # 没有找到供应商
         logger.warning(f"No suppliers found for categories: {categories}")
+
+        # 创建空案例记录无匹配情况
+        case_id = _create_or_update_case(
+            buyer_id=args.get("buyer_id", "demo_buyer"),
+            product_description=input_data.product_description,
+            requirements=input_data.requirements,
+            discovered_suppliers=[],
+        )
+
         return {
+            "case_id": case_id,
             "matches": [],
             "summary": "Sorry, I couldn't find suitable suppliers in our network yet. "
                       "This product category is not covered. Could you try a different product?",
@@ -191,10 +201,18 @@ def _score_supplier(
     if required_moq:
         moq_str = supplier["capabilities"].get("moq_range", "")
         if moq_str:
-            # 简化判断
             try:
-                # "50-500 units" -> 提取数字
-                numbers = [int(s) for s in moq_str.split() if s.isdigit()]
+                # "50-500 units" -> 提取数字，处理范围格式
+                # 移除 "units" 等单位词
+                moq_str_cleaned = moq_str.lower().replace("units", "").replace("unit", "").strip()
+
+                # 处理范围格式 "50-500" 或 "50 - 500"
+                numbers = []
+                for part in moq_str_cleaned.replace("-", " ").split():
+                    part_cleaned = part.strip()
+                    if part_cleaned.isdigit():
+                        numbers.append(int(part_cleaned))
+
                 if numbers:
                     min_moq = min(numbers)
                     if required_moq >= min_moq:
@@ -202,7 +220,8 @@ def _score_supplier(
                         reasons.append(f"MOQ flexible (from {min_moq} units)")
                     else:
                         caveats.append(f"MOQ may be higher than your requirement ({min_moq}+)")
-            except:
+            except Exception as e:
+                logger.warning(f"Failed to parse MOQ '{moq_str}': {e}")
                 pass
     else:
         # 没有 MOQ 要求，给一半分
