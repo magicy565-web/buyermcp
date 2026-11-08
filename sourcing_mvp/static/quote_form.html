@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Quotation</title>
+    <link rel="stylesheet" href="/static/quote_form.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 id="title">Submit Your Quotation</h1>
+            <button class="lang-switch" onclick="toggleLanguage()">中文</button>
+        </div>
+
+        <div class="product-info">
+            <h2 id="product-label">Product Inquiry</h2>
+            <div class="product-name">{{PRODUCT_NAME}}</div>
+            <div class="product-desc">{{PRODUCT_DESCRIPTION}}</div>
+            <div class="quantity">
+                <span id="quantity-label">Quantity:</span> <strong>{{QUANTITY}} units</strong>
+            </div>
+            <div class="deadline">
+                <span id="deadline-label">Quote Deadline:</span> <strong id="deadline-value">{{DEADLINE}}</strong>
+            </div>
+        </div>
+
+        <form id="quoteForm" onsubmit="submitQuote(event)">
+            <input type="hidden" id="token" value="{{TOKEN}}">
+
+            <div class="form-group">
+                <label for="unit_price" id="label-price">Unit Price *</label>
+                <div class="price-input">
+                    <input type="text"
+                           id="unit_price"
+                           name="unit_price"
+                           required
+                           placeholder="18.50"
+                           pattern="[0-9]+(\.[0-9]{1,4})?"
+                           inputmode="decimal">
+                    <select id="currency" name="currency" required>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="CNY">CNY</option>
+                        <option value="GBP">GBP</option>
+                        <option value="JPY">JPY</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="moq" id="label-moq">MOQ (Minimum Order Quantity) *</label>
+                <input type="number"
+                       id="moq"
+                       name="moq"
+                       required
+                       min="1"
+                       placeholder="100"
+                       inputmode="numeric">
+                <span class="hint" id="hint-moq">units</span>
+            </div>
+
+            <div class="form-group">
+                <label for="lead_time_days" id="label-leadtime">Lead Time *</label>
+                <input type="number"
+                       id="lead_time_days"
+                       name="lead_time_days"
+                       required
+                       min="1"
+                       placeholder="25"
+                       inputmode="numeric">
+                <span class="hint" id="hint-leadtime">days</span>
+            </div>
+
+            <div class="form-group">
+                <label for="trade_term" id="label-trade">Trade Terms *</label>
+                <select id="trade_term" name="trade_term" required>
+                    <option value="FOB">FOB</option>
+                    <option value="CIF">CIF</option>
+                    <option value="EXW">EXW</option>
+                    <option value="DDP">DDP</option>
+                    <option value="OTHER">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="quote_valid_until" id="label-valid">Quote Valid Until *</label>
+                <input type="date"
+                       id="quote_valid_until"
+                       name="quote_valid_until"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="payment_terms" id="label-payment">Payment Terms</label>
+                <input type="text"
+                       id="payment_terms"
+                       name="payment_terms"
+                       placeholder="30% deposit, 70% before shipping"
+                       maxlength="200">
+            </div>
+
+            <div class="form-group">
+                <label for="specification_notes" id="label-notes">Specification Differences / Notes</label>
+                <textarea id="specification_notes"
+                          name="specification_notes"
+                          rows="3"
+                          placeholder="Any differences from the requested specifications..."
+                          maxlength="500"></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-submit" id="btn-submit">
+                    Submit Quotation
+                </button>
+            </div>
+
+            <div id="message" class="message" style="display: none;"></div>
+        </form>
+
+        <div class="footer">
+            <p id="footer-text">Submitted quotes cannot be edited. Please verify all information before submission.</p>
+        </div>
+    </div>
+
+    <script src="/static/quote_form.js"></script>
+</body>
+</html>

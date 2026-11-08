@@ -1,0 +1,18 @@
+# Caddy 配置 - HTTPS 反向代理
+
+sourcing.yourdomain.com {
+    reverse_proxy localhost:8000
+
+    # 日志
+    log {
+        output file /var/log/caddy/sourcing-quote.log
+    }
+
+    # 安全头
+    header {
+        X-Frame-Options "DENY"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        -Server
+    }
+}

@@ -1,0 +1,20 @@
+[Unit]
+Description=Sourcing Quote API
+After=network.target
+
+[Service]
+Type=simple
+User=sourcing
+Group=sourcing
+WorkingDirectory=/opt/sourcing-mcp
+EnvironmentFile=/opt/sourcing-mcp/.env
+ExecStart=/opt/sourcing-mcp/sourcing_mvp/deployment/run_api.sh
+Restart=always
+RestartSec=10
+
+# 安全设置
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

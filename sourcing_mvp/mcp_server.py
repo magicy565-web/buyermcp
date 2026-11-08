@@ -16,6 +16,8 @@ from mcp.server.stdio import stdio_server
 from mcp.types import Tool, TextContent
 
 from .tools import discover, prepare, send, track
+from .tools import create_quote_request, get_quotes
+from .mcp_format_helpers import _format_create_quote_output, _format_get_quotes_output
 
 # 配置日志
 logging.basicConfig(
@@ -141,6 +143,77 @@ def create_server() -> Server:
                     },
                 },
             ),
+            Tool(
+                name="create_quote_request",
+                description=(
+                    "创建报价请求并生成专属链接。"
+                    "买手授权后，生成供应商专属报价链接。"
+                ),
+                inputSchema={
+                    "type": "object",
+                    "properties": {
+                        "case_id": {
+                            "type": "string",
+                            "description": "采购案例 ID",
+                        },
+                        "supplier_id": {
+                            "type": "string",
+                            "description": "供应商 ID",
+                        },
+                        "product_name": {
+                            "type": "string",
+                            "description": "产品名称",
+                        },
+                        "product_description": {
+                            "type": "string",
+                            "description": "产品描述",
+                        },
+                        "quantity": {
+                            "type": "integer",
+                            "description": "采购数量",
+                        },
+                        "specifications": {
+                            "type": "object",
+                            "description": "规格要求（可选）",
+                        },
+                        "quote_deadline_hours": {
+                            "type": "integer",
+                            "description": "报价截止时间（小时，默认72）",
+                            "default": 72,
+                        },
+                        "confirm": {
+                            "type": "boolean",
+                            "description": "买手确认（必须明确设为 true）",
+                            "default": False,
+                        },
+                        "base_url": {
+                            "type": "string",
+                            "description": "服务器地址（用于生成链接）",
+                        },
+                    },
+                    "required": ["case_id", "supplier_id", "product_name", "quantity"],
+                },
+            ),
+            Tool(
+                name="get_quotes",
+                description=(
+                    "查询报价。"
+                    "查询某个案例或报价请求的所有供应商报价。"
+                ),
+                inputSchema={
+                    "type": "object",
+                    "properties": {
+                        "case_id": {
+                            "type": "string",
+                            "description": "采购案例 ID（与 quote_request_id 二选一）",
+                        },
+                        "quote_request_id": {
+                            "type": "string",
+                            "description": "报价请求 ID（与 case_id 二选一）",
+                        },
+                    },
+                },
+            ),
         ]
 
     @server.call_tool()
@@ -158,6 +231,10 @@ def create_server() -> Server:
                 result = await send.send_inquiry(arguments)
             elif name == "track_response":
                 result = await track.track_response(arguments)
+            elif name == "create_quote_request":
+                result = await create_quote_request.create_quote_request(arguments)
+            elif name == "get_quotes":
+                result = await get_quotes.get_quotes(arguments)
             else:
                 raise ValueError(f"Unknown tool: {name}")
 
@@ -172,6 +249,10 @@ def create_server() -> Server:
                 formatted = _format_send_output(result)
             elif name == "track_response":
                 formatted = _format_track_output(result)
+            elif name == "create_quote_request":
+                formatted = _format_create_quote_output(result)
+            elif name == "get_quotes":
+                formatted = _format_get_quotes_output(result)
             else:
                 formatted = str(result)
 
