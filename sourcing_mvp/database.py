@@ -275,8 +275,8 @@ class Database:
                 INSERT INTO supplier (
                     id, name, contact_email, contact_wechat, contact_phone,
                     contact_person, categories, capabilities, verification,
-                    response_rate, avg_response_time_hours, notes, active
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    response_rate, avg_response_time_hours, notes, active, is_test_data
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 supplier["id"],
                 supplier["name"],
@@ -808,5 +808,7 @@ class Database:
             return messages
 
 
-# 全局数据库实例
-db = Database()
+# 全局数据库实例 - 从环境变量读取路径（与 mcp_server 和 quote_api 统一）
+import os as _os
+_DB_PATH = _os.environ.get("DATABASE_PATH", "sourcing_mvp.db")
+db = Database(_DB_PATH)

@@ -61,8 +61,18 @@ async def get_quotes(args: dict[str, Any]) -> dict[str, Any]:
         supplier = db.get_supplier(quote["supplier_id"])
 
         # 检查报价是否过期
-        valid_until = datetime.fromisoformat(quote["quote_valid_until"])
-        is_expired = valid_until < datetime.now()
+        try:
+            valid_until = datetime.fromisoformat(quote["quote_valid_until"])
+            # 确保时区一致
+            from datetime import timezone
+            now = datetime.now(timezone.utc)
+            if valid_until.tzinfo is None:
+                # 如果没有时区信息，假定为 UTC
+                valid_until = valid_until.replace(tzinfo=timezone.utc)
+            is_expired = valid_until < now
+        except (ValueError, TypeError):
+            # 日期格式错误，视为未过期
+            is_expired = False
 
         formatted_quote = {
             "quote_id": quote["id"],
